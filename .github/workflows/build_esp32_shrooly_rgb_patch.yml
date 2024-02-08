@@ -1,4 +1,4 @@
-name: Build ESP32 shrooly
+name: Build ESP32 shrooly with RGB patch
 
 on:
   push:
@@ -53,6 +53,19 @@ jobs:
 
     - name: Set Env
       run: echo BIN_PATH=ports/espressif/_bin/${{ matrix.board }} >> $GITHUB_ENV
+
+    - name: Shrooly: Apply patch for RGB byte order
+      run: |
+        cat src/main.c
+        # Define the old and new lines
+        old_line1="uint8_t const RGB_USB_UNMOUNTED[] = { 0xff, 0x00, 0x00 }; // Red"
+        old_line2="uint8_t const RGB_USB_MOUNTED[]   = { 0x00, 0xff, 0x00 }; // Green"
+        new_line1="uint8_t const RGB_USB_UNMOUNTED[] = { 0x00, 0xff, 0x00 }; // Red patched for Shrooly"
+        new_line2="uint8_t const RGB_USB_MOUNTED[]   = { 0xff, 0x00, 0x00 }; // Green patched for Shrooly"
+        file_path="src/main.c"
+        sed -i "s/$old_line1/$new_line1/g" "$file_path"
+        sed -i "s/$old_line2/$new_line2/g" "$file_path"
+        cat src/main.c
 
     - name: Build
       run: docker run --rm -v $PWD:/project -w /project espressif/idf:v5.1.1 /bin/bash -c "git config --global --add safe.directory /project && make -C ports/espressif/ BOARD=${{ matrix.board }} all self-update copy-artifact"
