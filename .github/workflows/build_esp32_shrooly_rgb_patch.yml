@@ -54,7 +54,7 @@ jobs:
     - name: Set Env
       run: echo BIN_PATH=ports/espressif/_bin/${{ matrix.board }} >> $GITHUB_ENV
 
-    - name: Shrooly: Apply patch for RGB byte order
+    - name: Shrooly - Apply patch for RGB byte order
       run: |
         cat src/main.c
         # Define the old and new lines
