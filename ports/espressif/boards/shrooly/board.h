@@ -51,7 +51,7 @@
 #define NEOPIXEL_BRIGHTNESS   0x64
 
 // Number of neopixels
-#define NEOPIXEL_NUMBER       12
+#define NEOPIXEL_NUMBER       16
 
 //--------------------------------------------------------------------+
 // USB UF2
