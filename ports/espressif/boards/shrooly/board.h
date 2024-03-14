@@ -64,7 +64,7 @@
 
 #define UF2_PRODUCT_NAME  USB_MANUFACTURER " " USB_PRODUCT
 #define UF2_BOARD_ID      "Shrooly S1"
-#define UF2_VOLUME_LABEL  "Sh-Recovery"
+#define UF2_VOLUME_LABEL  "Shrooly S1"
 #define UF2_INDEX_URL     "https://shrooly.com"
 
 #endif
