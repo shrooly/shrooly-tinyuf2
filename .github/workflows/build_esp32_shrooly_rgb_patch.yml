@@ -66,6 +66,10 @@ jobs:
         sed -i "s|$old_line2|$new_line2|g" "$file_path"
         cat src/main.c
 
+    - name: Shrooly - Copy custom partition table
+      run: |
+        cp ports/espressif/boards/shrooly/partitions-8MB-coredump.csv ports/espressif/partitions-8MB-coredump.csv
+
     - name: Build
       run: docker run --rm -v $PWD:/project -w /project espressif/idf:v5.1.1 /bin/bash -c "git config --global --add safe.directory /project && make -C ports/espressif/ BOARD=${{ matrix.board }} all self-update copy-artifact"
 
